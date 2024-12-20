@@ -1,3 +1,4 @@
+using Command.AbstractCommand;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,6 +63,11 @@ namespace Command.Player
                 activeUnitIndex++;
                 TryStaringUnitTurn();
             }
+        }
+
+        public void ProcessUnitCommand(UnitCommand commandToProcess)
+        {
+            GetUnitByID(commandToProcess.commandData.ActorUnitID).ProcessUnitCommand(commandToProcess);
         }
 
         private void ResetAllUnitStates() => units.ForEach(unit => unit.SetUsedState(UnitUsedState.NOT_USED));

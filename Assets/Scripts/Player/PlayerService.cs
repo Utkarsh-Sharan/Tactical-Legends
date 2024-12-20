@@ -1,3 +1,4 @@
+using Command.AbstractCommand;
 using Command.Actions;
 using Command.Main;
 
@@ -65,7 +66,25 @@ namespace Command.Player
 
         public void OnPlayerTurnCompleted() => StartNextTurn();
 
-        public void PerformAction(CommandType actionSelected, UnitController targetUnit) => GameService.Instance.ActionService.GetActionByType(actionSelected).PerformAction(activePlayer.GetUnitByID(ActiveUnitID), targetUnit);
+        public void ProcessUnitCommand(UnitCommand commandToProcess)
+        {
+            // Set unit references for the command.
+            SetUnitReferences(commandToProcess);
+
+            // Delegate unit command processing to the corresponding player.
+            GetPlayerById(commandToProcess.commandData.ActorPlayerID).ProcessUnitCommand(commandToProcess);
+        }
+
+        private void SetUnitReferences(UnitCommand commandToProcess)
+        {
+            //getting actor and target units based on command data.
+            var actorUnit = GetPlayerById(commandToProcess.commandData.ActorPlayerID).GetUnitByID(commandToProcess.commandData.ActorUnitID);
+            var targetUnit = GetPlayerById(commandToProcess.commandData.TargetPlayerID).GetUnitByID(commandToProcess.commandData.TargetUnitID);
+
+            //setting actor and target units for the command.
+            commandToProcess.SetActorUnit(actorUnit);
+            commandToProcess.SetTargetUnit(targetUnit);
+        }
 
         public void PlayerDied(PlayerController deadPlayer)
         {
