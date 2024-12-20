@@ -55,7 +55,7 @@ namespace Command.Input
             UnitCommand commandToProcess = CreateUnitCommand(targetUnit);
 
             //passing created command to the GameService for further Processsing.
-            //GameService.Instance.ProcessUnitCommand(commandToProcess);
+            GameService.Instance.ProcessUnitCommand(commandToProcess);
         }
 
         private UnitCommand CreateUnitCommand(UnitController targetUnit)
