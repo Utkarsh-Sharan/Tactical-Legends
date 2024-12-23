@@ -13,8 +13,8 @@ namespace Command
 
         public void ProcessCommand(ICommand commandToProcess)
         {
-            ExecuteCommand(commandToProcess);
             RegisterCommand(commandToProcess);
+            ExecuteCommand(commandToProcess);
         }
 
         public void ExecuteCommand(ICommand commandToExecute) => commandToExecute.Execute();
