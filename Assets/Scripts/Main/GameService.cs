@@ -10,6 +10,7 @@ using Command.Battle;
 using Command.Actions;
 using UnityEngine.UI;
 using Command.AbstractCommand;
+using Replay;
 
 namespace Command.Main
 {
@@ -30,6 +31,7 @@ namespace Command.Main
         public BattleService BattleService { get; private set; }
         public PlayerService PlayerService { get; private set; }
         public CommandInvoker CommandInvoker { get; private set; }
+        public ReplayService ReplayService { get; private set; }
 
         [SerializeField] private UIService uiService;
         public UIService UIService => uiService;
@@ -51,6 +53,7 @@ namespace Command.Main
             BattleService = new BattleService(battleScriptableObjects);
             PlayerService = new PlayerService();
             CommandInvoker = new CommandInvoker();
+            ReplayService = new ReplayService();
             uiService.Init(battleScriptableObjects.Count);
         }
 
